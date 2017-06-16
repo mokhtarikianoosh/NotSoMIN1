@@ -142,7 +142,8 @@ public class Table
         List <Comparable []> rows = new ArrayList <> ();
         
         //iterates through the tuples in the table
-        for(int i = 0; i < tuples.size(); i++){
+        for(int i = 0; i < tuples.size(); i++)
+        {
         	
         		//creates an array of counts for the target attribute in the tuple
         		int count [] = new int[tuples.size()];
@@ -150,7 +151,7 @@ public class Table
         		for(int k = 0; k < tuples.size(); k++ )
         		{
         			count[k] = 0;
-        		}
+        		}//for
         		
         		//iterates through the tuples in the table to find duplicates
         		for(int j = i+1; j < tuples.size(); j++)
@@ -161,8 +162,8 @@ public class Table
         			{
         				//adds a one to the count if a duplicate is found
         				count[i] += 1;
-        			}
-        		}
+        			}//if
+        		}//for
         		
         		//out.println(count[i]);
         		
@@ -170,9 +171,10 @@ public class Table
         		if(count[i] == 0)
         		{
         			rows.add(extract(tuples.get(i),attrs));
-        		}
-        	}
+        		}//if
+        }//for
          
+        //returns to the user the final table
         return new Table (name + count++, attrs, colDomain, newKey, rows);
     } // project
 
@@ -257,21 +259,37 @@ public class Table
     public Table minus (Table table2)
     {
         out.println ("RA> " + name + ".minus (" + table2.name + ")");
-        if (! compatible (table2)) return null;
 
         List <Comparable []> rows = new ArrayList <> ();
+        
+        //checks if the lhs is compatible with the rhs table
+        
+        if (compatible(table2) == false) 
+        {
+        	return new Table (name + count++, attribute, domain, key, rows);
+        	//return null;
+        }//if
+        
+        //populates the rows arrayList with elements from the original tuple arrayList
         for(Comparable [] e : tuples)
+        {
         	rows.add(e);
+        }//for
 
-      
-        for(int i = 0; i < table2.tuples.size(); i++){
-        	if(rows.contains(table2.tuples.get(i))){
-        		rows.remove(table2.tuples.get(i));
-        	}
-        }
+        //iterates through the elements in rows and compares them to elements in table2
+        for(int i = 0; i < table2.tuples.size(); i++)
+        {
+        	for(int j = 0; j < rows.size(); j++)
+        	{
+        		//if an element from rows equals an element from table2, remove it from rows
+        		if(compareComparable(table2.tuples.get(i), rows.get(j)))
+        		{
+        			rows.remove(j);
+        		}//if
+        	}//for
+        }//for
         
-        
-     
+        //returns to the user the final table
         return new Table (name + count++, attribute, domain, key, rows);
     } // minus
 
