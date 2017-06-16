@@ -139,15 +139,15 @@ public class Table
         Class []  colDomain = extractDom (match (attrs), domain);
         String [] newKey    = (Arrays.asList (attrs).containsAll (Arrays.asList (key))) ? key : attrs;
 
-        for(int m = 0; m < newKey.length; m++){
+        /*for(int m = 0; m < newKey.length; m++){
         	out.println(newKey[m] + " hey");
-        }
+        }*/
         
         List <Comparable []> rows = new ArrayList <> ();
 
         //  T O   B E   I M P L E M E N T E D 
         
-        
+        //iterates through the tuples in the table
         for(int i = 0; i < tuples.size(); i++){
         		
         		/*Comparable[] temp = null;
@@ -157,8 +157,34 @@ public class Table
         		}else{
         			rows.add(temp);
         		}*/
-        			
-        		rows.add(extract(tuples.get(i),attrs));
+        	
+        		//creates an array of counts for the target attribute in the tuple
+        		int count [] = new int[tuples.size()];
+        		//sets all values in the array to defaulted 0
+        		for(int k = 0; k < tuples.size(); k++ )
+        		{
+        			count[k] = 0;
+        		}
+        		
+        		//iterates through the tuples in the table to find duplicates
+        		for(int j = i+1; j < tuples.size(); j++)
+        		{
+        			//compares the target attribute in the tuple to the next target attribute in the
+        			//tuple after
+        			if(compareComparable(extract(tuples.get(i),attrs), extract(tuples.get(j),attrs)))
+        			{
+        				//adds a one to the count if a duplicate is found
+        				count[i] += 1;
+        			}
+        		}
+        		
+        		//out.println(count[i]);
+        		
+        		//only adds the target attribute to the table if it doesn't have a duplicate
+        		if(count[i] == 0)
+        		{
+        			rows.add(extract(tuples.get(i),attrs));
+        		}
         	}
          
         return new Table (name + count++, attrs, colDomain, newKey, rows);
@@ -407,7 +433,7 @@ public class Table
         for(int i =0; i < table1Attrs.size(); i++)
         	finalAttrs[i] = table1Attrs.get(i);
         
-        if(rhsAttrs[0] != null){
+        if(keep != null){
 	        cleanDomain = ArrayUtil.concat(extractDom(match(lhsAttrs),domain),table2.extractDom(table2.match(rhsAttrs),table2.domain));
 	        	
 	        Comparable [] tuple1 = null;
@@ -679,8 +705,10 @@ public class Table
      */
     private boolean compareComparable(Comparable [] x, Comparable [] t){
 	    
-		if(x.length == t.length){
-			for(int i = 0; i < x.length; i++){
+		if(x.length == t.length)
+		{
+			for(int i = 0; i < x.length; i++)
+			{
 				if(!x[i].equals(t[i]))
 					return false;
 			}
