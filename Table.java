@@ -128,7 +128,7 @@ public class Table
      * Check whether the original key is included in the projection.
      *
      * #usage movie.project ("title year studioNo")
-     *
+     * @author Rachel Lilja
      * @param attributes  the attributes to project onto
      * @return  a table of projected tuples
      */
@@ -138,25 +138,11 @@ public class Table
         String [] attrs     = attributes.split (" ");
         Class []  colDomain = extractDom (match (attrs), domain);
         String [] newKey    = (Arrays.asList (attrs).containsAll (Arrays.asList (key))) ? key : attrs;
-
-        /*for(int m = 0; m < newKey.length; m++){
-        	out.println(newKey[m] + " hey");
-        }*/
         
         List <Comparable []> rows = new ArrayList <> ();
-
-        //  T O   B E   I M P L E M E N T E D 
         
         //iterates through the tuples in the table
         for(int i = 0; i < tuples.size(); i++){
-        		
-        		/*Comparable[] temp = null;
-        		temp = extract(tuples.get(i),attrs);//new Comparable[attrs.length];
-        		if(temp != null){
-        			rows.add(temp);
-        		}else{
-        			rows.add(temp);
-        		}*/
         	
         		//creates an array of counts for the target attribute in the tuple
         		int count [] = new int[tuples.size()];
@@ -211,6 +197,7 @@ public class Table
      * Select the tuples satisfying the given key predicate (key = value).  Use an index
      * (Map) to retrieve the tuple with the given key value.
      *
+     * @author Jose Casseres
      * @param keyVal  the given key value
      * @return  a table with the tuple satisfying the key predicate
      */
@@ -220,7 +207,7 @@ public class Table
 
         List <Comparable []> rows = new ArrayList <> ();
 
-        //  T O   B E   I M P L E M E N T E D 
+        //if the index key matches the target key, add that attribute to the table
         if(index.containsKey(keyVal))
         	rows.add(index.get(keyVal));
         		
@@ -233,6 +220,7 @@ public class Table
      *
      * #usage movie.union (show)
      *
+     * @author Kianoosh Mokhtari(2017)
      * @param table2  the rhs table in the union operation
      * @return  a table representing the union
      */
@@ -262,6 +250,7 @@ public class Table
      *
      * #usage movie.minus (show)
      *
+     * @author Rachel Lilja
      * @param table2  The rhs table in the minus operation
      * @return  a table representing the difference
      */
@@ -273,8 +262,6 @@ public class Table
         List <Comparable []> rows = new ArrayList <> ();
         for(Comparable [] e : tuples)
         	rows.add(e);
-        
-        //  T O   B E   I M P L E M E N T E D 
 
       
         for(int i = 0; i < table2.tuples.size(); i++){
@@ -295,6 +282,7 @@ public class Table
      *
      * #usage movie.join ("studioNo", "name", studio)
      *
+     * @author Kianoosh Mokhtari
      * @param attribute1  the attributes of this table to be compared (Foreign Key)
      * @param attribute2  the attributes of table2 to be compared (Primary Key)
      * @param table2      the rhs table in the join operation
@@ -381,7 +369,8 @@ public class Table
      * eliminated.
      *
      * #usage movieStar.join (starsIn)
-     *
+     * 
+     * @author Jose Casseres
      * @param table2  the rhs table in the join operation
      * @return  a table with tuples satisfying the equality predicate
      */
@@ -433,7 +422,7 @@ public class Table
         for(int i =0; i < table1Attrs.size(); i++)
         	finalAttrs[i] = table1Attrs.get(i);
         
-        if(keep != null){
+        if(keep.size() > 0){
 	        cleanDomain = ArrayUtil.concat(extractDom(match(lhsAttrs),domain),table2.extractDom(table2.match(rhsAttrs),table2.domain));
 	        	
 	        Comparable [] tuple1 = null;
@@ -671,6 +660,7 @@ public class Table
      * Check the size of the tuple (number of elements in list) as well as the type of
      * each value to ensure it is from the right domain. 
      *
+     * @author Jose Casseres
      * @param t  the tuple as a list of attribute values
      * @return  whether the tuple has the right size and values that comply
      *          with the given domains
