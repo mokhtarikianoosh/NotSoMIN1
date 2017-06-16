@@ -326,6 +326,17 @@ public class Table
         String [] t_attrs = attributes1.split (" ");
         String [] u_attrs = attributes2.split (" ");
         
+        
+        for(int i =0; i <attribute.length; i++){
+        	for(int x = 0; x < table2.attribute.length; x++)
+        	if(attribute[i].equals(table2.attribute[x]))
+        		table2.attribute[x] = table2.attribute[x] + "2";
+        	
+        }
+        
+        
+        
+        
         List <Comparable []> lhs = new ArrayList<>();
         List<KeyType> foreignKeys = new ArrayList<>();
         		
@@ -335,7 +346,7 @@ public class Table
         for(Comparable[] t : lhs)
         	foreignKeys.add(new KeyType(t));
 
-       
+       /*
         List<String> clean = new ArrayList<>();
        	for(String w : attribute){
        		for(String a : t_attrs)
@@ -350,14 +361,14 @@ public class Table
        	for(int i =0 ; i < clean.size(); i++){
        		helpClean[i] = clean.get(i);
        	}
-        	
+        	*/
         
         List <Comparable []> rows = new ArrayList <> ();
       
        	 Comparable [] temp = null;
        	for(int j = 0; j  < foreignKeys.size() ; j++){
        		if(table2.index.containsKey(foreignKeys.get(j))){
-       			temp = ArrayUtil.concat(extract(tuples.get(j),helpClean), table2.index.get(foreignKeys.get(j)));
+       			temp = ArrayUtil.concat(extract(tuples.get(j),attribute), table2.index.get(foreignKeys.get(j)));
        			rows.add(temp);
        		}
        	}
@@ -365,6 +376,8 @@ public class Table
        	
     
         //  T O   B E   I M P L E M E N T E D 
+       	
+       	/*
        	List<String> cleanUp = new ArrayList<>();
        	for(String x : attribute){
        		for(String y : t_attrs)
@@ -375,17 +388,23 @@ public class Table
        		}
        	}
        	
+       	*/
+       	
+       	/*
        	String[] helper = new String[cleanUp.size()];
        	for(int i =0 ; i < cleanUp.size(); i++){
        		helper[i] = cleanUp.get(i);
        	}
        	
-       	Class[] helpDomain = extractDom (match (helper), domain);
+       	*/
+       	
+       //	Class[] helpDomain = extractDom (match (helper), domain);
     	
     	
 
-       	return new Table (name + count++, ArrayUtil.concat (helper, table2.attribute),
-                ArrayUtil.concat (helpDomain, table2.domain), key, rows);
+       	
+       	return new Table (name + count++, ArrayUtil.concat (attribute, table2.attribute),
+                ArrayUtil.concat (domain, table2.domain), key, rows);
        	
        	
        
