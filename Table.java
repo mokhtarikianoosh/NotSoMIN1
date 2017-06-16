@@ -144,7 +144,6 @@ public class Table
         //iterates through the tuples in the table
         for(int i = 0; i < tuples.size(); i++)
         {
-        	
         		//creates an array of counts for the target attribute in the tuple
         		int count [] = new int[tuples.size()];
         		//sets all values in the array to defaulted 0
@@ -164,8 +163,6 @@ public class Table
         				count[i] += 1;
         			}//if
         		}//for
-        		
-        		//out.println(count[i]);
         		
         		//only adds the target attribute to the table if it doesn't have a duplicate
         		if(count[i] == 0)
@@ -229,17 +226,32 @@ public class Table
     public Table union (Table table2)
     {
         out.println ("RA> " + name + ".union (" + table2.name + ")");
-        if (! compatible (table2)) return null;
-
+        
         List <Comparable []> rows = new ArrayList <> ();
+        
+        if (! compatible (table2)) 
+        {
+        	return new Table (name + count++, attribute, domain, key, rows);
+        	//return null;
+        }
+
+        //populates the rows arrayList with lhs and rhs data
         for(Comparable [] e : tuples)
         	rows.add(e);
-        //  T O   B E   I M P L E M E N T E D 
-       
         
-        for(int i = 0; i < table2.tuples.size(); i++){
-        	if(!rows.contains(table2.tuples.get(i))){
-        		rows.add(table2.tuples.get(i));
+        for(Comparable [] e : table2.tuples)
+        	rows.add(e);
+        //  T O   B E   I M P L E M E N T E D 
+        
+        //compares rows to rows+1 to see if there are duplicates
+        for(int i = 0; i < rows.size(); i++)
+        {
+        	for(int j = i+1; j < rows.size(); j++)
+        	{
+        		if(compareComparable(rows.get(i), rows.get(j)))
+        		{
+        			rows.remove(j);
+        		}
         	}
         }
         
