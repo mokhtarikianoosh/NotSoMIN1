@@ -326,84 +326,66 @@ public class Table
         String [] t_attrs = attributes1.split (" ");
         String [] u_attrs = attributes2.split (" ");
         
+      
         
-        for(int i =0; i <attribute.length; i++){
-        	for(int x = 0; x < table2.attribute.length; x++)
-        	if(attribute[i].equals(table2.attribute[x]))
-        		table2.attribute[x] = table2.attribute[x] + "2";
-        	
-        }
-        
-        
-        
+        //  T O   B E   I M P L E M E N T E D 
         
         List <Comparable []> lhs = new ArrayList<>();
         List<KeyType> foreignKeys = new ArrayList<>();
-        		
+        
+        //get tuples from left table
         for(Comparable[] e : tuples)
         	lhs.add(extract(e, t_attrs));
-        
+        //getting foriegn keys
         for(Comparable[] t : lhs)
         	foreignKeys.add(new KeyType(t));
 
-       /*
-        List<String> clean = new ArrayList<>();
-       	for(String w : attribute){
-       		for(String a : t_attrs)
-       		{
-       			if(!w.equalsIgnoreCase(a)){
-       				clean.add(w);
-       			}
-       		}
-       	}
-       	
-       	String[] helpClean = new String[clean.size()];
-       	for(int i =0 ; i < clean.size(); i++){
-       		helpClean[i] = clean.get(i);
-       	}
-        	*/
+      
         
         List <Comparable []> rows = new ArrayList <> ();
       
        	 Comparable [] temp = null;
+       	 
+       	 //checks to see if table2 has matching values and if so add that tuple the list
        	for(int j = 0; j  < foreignKeys.size() ; j++){
        		if(table2.index.containsKey(foreignKeys.get(j))){
        			temp = ArrayUtil.concat(extract(tuples.get(j),attribute), table2.index.get(foreignKeys.get(j)));
        			rows.add(temp);
+       			
        		}
        	}
+      
        	
-       	
-    
-        //  T O   B E   I M P L E M E N T E D 
-       	
-       	/*
-       	List<String> cleanUp = new ArrayList<>();
-       	for(String x : attribute){
-       		for(String y : t_attrs)
-       		{
-       			if(!x.equalsIgnoreCase(y)){
-       				cleanUp.add(x);
-       			}
-       		}
-       	}
-       	
-       	*/
-       	
-       	/*
-       	String[] helper = new String[cleanUp.size()];
-       	for(int i =0 ; i < cleanUp.size(); i++){
-       		helper[i] = cleanUp.get(i);
-       	}
-       	
-       	*/
+      
        	
        //	Class[] helpDomain = extractDom (match (helper), domain);
     	
-    	
-
+    	//copy domain & attributes to modify for duplicates without modifying original table
        	
-       	return new Table (name + count++, ArrayUtil.concat (attribute, table2.attribute),
+       	String [] temp1 = new String [attribute.length];
+       	String [] temp2 = new String [table2.attribute.length];
+       	
+       	for(int i = 0; i < attribute.length; i++){
+       		temp1[i] = attribute[i];
+       	}
+       	
+       	for(int i = 0; i< table2.attribute.length; i++){
+       		temp2[i] = table2.attribute[i];
+       	}
+       	
+      
+       	//check for column names of table 1 and 2, if they match, it appends "2" to that column for table 2;
+       	for(int i = 0; i < temp1.length; i++){
+       		for(int x = 0; x < temp2.length; x++){
+       			if(temp1[i].equals(temp2[x])){
+       				temp2[x] += "2";
+       				
+       			}
+       			
+       		}
+       	}
+       	
+       	return new Table (name + count++, ArrayUtil.concat (temp1, temp2),
                 ArrayUtil.concat (domain, table2.domain), key, rows);
        	
        	

@@ -25,8 +25,8 @@ class MovieDB
         Table movie = new Table ("movie", "title year length genre studioName producerNo",
                                           "String Integer Integer String String Integer", "title year");
 
-        Table cinema = new Table ("cinema", "title year length genre studioName producerNo owner",
-                                            "String Integer Integer String String Integer String", "title year");
+        Table cinema = new Table ("cinema", "title year length genre studioName producerNo",
+                                            "String Integer Integer String String Integer", "title year");
 
         Table movieStar = new Table ("movieStar", "name address gender birthdate",
                                                   "String String Character String", "name");
@@ -51,12 +51,10 @@ class MovieDB
         movie.insert (film3);
         movie.print ();
 
-        Comparable [] film4 = { "Galaxy_Quest", 1999, 104, "comedy", "DreamWorks", 67890, "John" };
-        Comparable [] film5 = { "Rocky", 1985, 200, "action", "Universal", 12125, "John"};
-        Comparable [] film6 = { "Rambo", 1978, 100, "action", "Universal", 32355, "John" };
+        Comparable [] film4 = { "Galaxy_Quest", 1999, 104, "comedy", "DreamWorks", 67890 };
         out.println ();
-        cinema.insert (film5); // film 2
-        cinema.insert (film6); // film 3
+        cinema.insert (film2);
+        cinema.insert (film3);
         cinema.insert (film4);
         cinema.print ();
 
@@ -96,16 +94,11 @@ class MovieDB
         studio.save ();
 
         movieStar.printIndex ();
-        out.println();
-        out.println();
-        movie.printIndex();
-        out.println();
-        out.println();
-        studio.printIndex();
+
         //--------------------- project: title year
-      
+
         out.println ();
-        Table t_project = movie.project ("title");
+        Table t_project = movie.project ("title year");
         t_project.print ();
 
         //--------------------- select: equals, &&
@@ -124,20 +117,20 @@ class MovieDB
         //--------------------- indexed select: key
 
         out.println ();
-        Table t_iselect = movieStar.select (new KeyType ("Carrie_Fisher"));
+        Table t_iselect = movieStar.select (new KeyType ("Harrison_Ford"));
         t_iselect.print ();
 
         //--------------------- union: movie UNION cinema
 
         out.println ();
-        //Table t_union = movie.union (cinema);
-        //t_union.print ();
+        Table t_union = movie.union (cinema);
+        t_union.print ();
 
         //--------------------- minus: movie MINUS cinema
 
         out.println ();
-        //Table t_minus = movie.minus (cinema);
-        //t_minus.print ();
+        Table t_minus = movie.minus (cinema);
+        t_minus.print ();
 
         //--------------------- equi-join: movie JOIN studio ON studioName = name
 
