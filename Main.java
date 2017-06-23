@@ -323,6 +323,39 @@ public class Main{
 			  }
 			  System.out.println(table);
 			  list.add(table);
+			  
+			  
+			  
+			 
+			  
+			  table = "";
+			  table = table.concat("emp_no  " + "first_name   " + "last_name   " + "birth_date     " + "gender  " + "dept_name    " + "salary\n");
+			  r = stmt.executeQuery(a(10));
+			  rm = r.getMetaData();
+			  columnsNumber = rm.getColumnCount();
+			  if(r.next()){
+				  System.out.println("WJATTT");
+				  table = table.concat(r.getObject(1) +"   " + r.getObject(2) + "   " +  r.getObject(3) +  "    "  + r.getObject(4) +    
+						  "    " + r.getObject(5)  + "  " + r.getObject(6) + "    $" + r.getObject(7) + "\n" );
+				  while(r.next()){
+				  
+					  table = table.concat(r.getObject(1) +"   " + r.getObject(2) + "   " +  r.getObject(3) +  "    "  + r.getObject(4) +    
+							  "    " + r.getObject(5)  + "  " + r.getObject(6) + "    $" + r.getObject(7) + "\n" );
+				  System.out.println("lololol");
+			 
+				  }
+			  }
+			  
+			 list.add(table);
+			  
+			  System.out.println(table);
+			  
+			  System.out.println("A TEST TO SEE ALL STRINGS IN THE LIST\n\n");
+			  
+			  for(int i = 0; i < list.size(); i++){
+				  
+				  System.out.println(list.get(i) + "\n\n");
+			  }
 		}
 		
 		
