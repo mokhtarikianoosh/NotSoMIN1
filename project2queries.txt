@@ -8,12 +8,7 @@ select any_value(dept_name), any_value(FemaleAvgSalary) from (select dept_name, 
 
 
 //works
-select deptName, fAvgSal from 
-(select deptName, cast(avg(tt.femaleAvgSal) as decimal(19,2))  as fAvgSal from(select t.id as id, t.avgSal as FemaleAvgSal, dd.dept_name as deptName from (select any_value(e.emp_no) as id , avg(s.salary) as avgSal from employees e 
-
-natural join salaries s where e.gender = 'F' and e.emp_no = s.emp_no group by emp_no) as t, dept_emp d, departments dd where t.id = d.emp_no and d.dept_no = dd.dept_no) as tt, departments where tt.deptName = dept_name group by dept_name) as female natural join (select deptName, cast(avg(tt.maleAvgSal) as decimal(19,2))  as MAvgSal from(select t.id as id, t.avgSal as MaleAvgSal, dd.dept_name as deptName from (select any_value(e.emp_no) as id , avg(s.salary) as avgSal from employees e natural join salaries s where e.gender = 'M' and e.emp_no = s.emp_no group by emp_no) as t, dept_emp d, departments dd where t.id = d.emp_no and d.dept_no = dd.dept_no) as tt, departments where tt.deptName = dept_name group by dept_name) as male
- 
- where fAvgSal > MAvgSal;
+select deptName, fAvgSal from  (select deptName, cast(avg(tt.femaleAvgSal) as decimal(19,2))  as fAvgSal from(select t.id as id, t.avgSal as FemaleAvgSal, dd.dept_name as deptName from (select any_value(e.emp_no) as id , avg(s.salary) as avgSal from employees e   natural join salaries s where e.gender = 'F' and e.emp_no = s.emp_no group by emp_no) as t, dept_emp d, departments dd where t.id = d.emp_no and d.dept_no = dd.dept_no) as tt, departments where tt.deptName = dept_name group by dept_name) as female natural join (select deptName, cast(avg(tt.maleAvgSal) as decimal(19,2))  as MAvgSal from(select t.id as id, t.avgSal as MaleAvgSal, dd.dept_name as deptName from (select any_value(e.emp_no) as id , avg(s.salary) as avgSal from employees e natural join salaries s where e.gender = 'M' and e.emp_no = s.emp_no group by emp_no) as t, dept_emp d, departments dd where t.id = d.emp_no and d.dept_no = dd.dept_no) as tt, departments where tt.deptName = dept_name group by dept_name) as male    where fAvgSal > MAvgSal order by fAvgSal DESC limit 1;
 
 c) 
 
