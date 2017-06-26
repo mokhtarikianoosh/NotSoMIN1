@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 import java.util.*;
 import javax.swing.*;
+import java.util.Scanner;
 
 
 public class Main{
@@ -15,10 +16,20 @@ public class Main{
 	final static String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	final static String DB_url = "jdbc:mysql://localhost/employees";
 	final static String user = "root";
+<<<<<<< HEAD
 	final static String pass = "usopen321";
+=======
+	static String pass = "P@nc@kes";
+>>>>>>> origin/master
 
 	
 	public static void main(String [] args){
+		
+		Scanner keyboard = new Scanner(System.in);
+		System.out.println("Please input your mySQL password:"); 
+		String password = keyboard.nextLine();
+		
+		pass = password;
 		
 		Connection conn = null;
 		Statement stmt = null;
