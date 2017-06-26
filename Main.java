@@ -15,7 +15,8 @@ public class Main{
 	final static String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	final static String DB_url = "jdbc:mysql://localhost/employees";
 	final static String user = "root";
-	final static	 String pass = "usopen321";
+	final static String pass = "P@nc@kes";
+
 	
 	public static void main(String [] args){
 		
@@ -366,6 +367,7 @@ public class Main{
 			
 			
 			//Get Department with lowest number of employees
+			//Jose
 			ResultSet r = stmt.executeQuery(a(1));
 			ResultSetMetaData rm = r.getMetaData();
 			int columnsNumber = rm.getColumnCount();
@@ -379,8 +381,8 @@ public class Main{
 			
 			list.add(table);
 			
+			//Jose
 			table = "";
-			
 			
 			r = stmt.executeQuery(a(2));
 			rm = r.getMetaData();
@@ -404,6 +406,7 @@ public class Main{
 			   
 			  list.add(table);
 			  
+			  //Kianoosh
 			  table = "";
 			  
 			  r = stmt.executeQuery(a(3));
@@ -419,39 +422,61 @@ public class Main{
 			  System.out.println(table);
 			  list.add(table);
 			  
+			  //Kianoosh
 			  table = "Employees born in the 50's\n";
-			  table = table.concat("Department          " + "Total Employees   " + "Avg Salary\n");
+			  table = table.concat("Department\t\t" + "Avg Salary\t" + "Total Employees\n");
 			  r = stmt.executeQuery(a(4));
 			  rm = r.getMetaData();
 			  columnsNumber = rm.getColumnCount();
 			  if(r.next()){
-				  table = table.concat(r.getObject(1) +"   " + r.getObject(2) + "   " +  r.getObject(3) + "\n" );
+				  table = table.concat(r.getObject(1) +"\t" + r.getObject(2) + "\t" +  r.getObject(3) + "\n" );
 				  while(r.next()){
-				  
-				  table = table.concat(r.getObject(1) +"   " + r.getObject(2) + "   " +  r.getObject(3) + "\n" );
-				  
-				  
-			 
+					  String name = r.getString("dept_name");
+					  int size = name.length();
+					  if(size == 15)
+					  {
+						  table = table.concat(r.getObject(1) +"\t" + r.getObject(2) + "\t" +  r.getObject(3) + "\n" );
+					  }
+					  else if(size == 18)
+					  {
+						  table = table.concat(r.getObject(1) +"\t" + r.getObject(2) + "\t" +  r.getObject(3) + "\n" );
+					  }
+					  else
+					  {
+						  table = table.concat(r.getObject(1) +"\t\t" + r.getObject(2) + "\t" +  r.getObject(3) + "\n" );
+					  }			 
 				  }
 			  }
 			  else{
 				  table = "No Employees born in the 50s exsists";
 			  }
+			  System.out.println("\n");
 			  System.out.println(table);
 			  list.add(table);
 			  
 			  
 			  table = "Employees born in the 60s's\n";
-			  table = table.concat("Department          " + "Avg Salary   " + "Total Employees\n");
+			  table = table.concat("Department\t\t" + "Avg Salary\t" + "Total Employees\n");
 			  r = stmt.executeQuery(a(5));
 			  rm = r.getMetaData();
 			  columnsNumber = rm.getColumnCount();
 			  if(r.next()){
-				  table = table.concat(r.getObject(1) +"        " + r.getObject(2) + "          " +  r.getObject(3) + "\n" );
+				  table = table.concat(r.getObject(1) +"\t" + r.getObject(2) + "\t" +  r.getObject(3) + "\n" );
 				  while(r.next()){
-				  
-				  table = table.concat(r.getObject(1) +"        " + r.getObject(2) + "          " +  r.getObject(3) + "\n" );
-				  
+					  String name = r.getString("dept_name");
+					  int size = name.length();
+					  if(size == 15)
+					  {
+						  table = table.concat(r.getObject(1) +"\t" + r.getObject(2) + "\t" +  r.getObject(3) + "\n" );
+					  }
+					  else if(size == 18)
+					  {
+						  table = table.concat(r.getObject(1) +"\t" + r.getObject(2) + "\t" +  r.getObject(3) + "\n" );
+					  }
+					  else
+					  {
+						  table = table.concat(r.getObject(1) +"\t\t" + r.getObject(2) + "\t" +  r.getObject(3) + "\n" );
+					  }	
 				  
 			 
 				  }
@@ -531,20 +556,20 @@ public class Main{
 			  
 			  
 			 
-			  
+			  //Rachel
 			  table = "";
-			  table = table.concat("emp_no  " + "first_name   " + "last_name   " + "birth_date     " + "gender  " + "dept_name    " + "salary\n");
+			  table = table.concat("emp_no\t" + "first_name\t" + "last_name\t" + "birth_date\t" + "gender\t" + "dept_name\t\t" + "salary\n");
 			  r = stmt.executeQuery(a(9));
 			  rm = r.getMetaData();
 			  columnsNumber = rm.getColumnCount();
 			  if(r.next()){
 				  System.out.println("WJATTT");
-				  table = table.concat(r.getObject(1) +"   " + r.getObject(2) + "   " +  r.getObject(3) +  "    "  + r.getObject(4) +    
-						  "    " + r.getObject(5)  + "  " + r.getObject(6) + "    $" + r.getObject(7) + "\n" );
+				  table = table.concat(r.getObject(1) +"\t" + r.getObject(2) + "\t" +  r.getObject(3) +  "\t"  + r.getObject(4) +    
+						  "\t" + r.getObject(5)  + "\t" + r.getObject(6) + "\t\t" + r.getObject(7) + "\n" );
 				  while(r.next()){
 				  
-					  table = table.concat(r.getObject(1) +"   " + r.getObject(2) + "   " +  r.getObject(3) +  "    "  + r.getObject(4) +    
-							  "    " + r.getObject(5)  + "  " + r.getObject(6) + "    $" + r.getObject(7) + "\n" );
+					  table = table.concat(r.getObject(1) +"\t" + r.getObject(2) + "\t" +  r.getObject(3) +  "\t"  + r.getObject(4) +    
+							  "\t" + r.getObject(5)  + "\t" + r.getObject(6) + "\t" + r.getObject(7) + "\n" );
 				  System.out.println("lololol");
 			 
 				  }
