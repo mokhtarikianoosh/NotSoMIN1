@@ -34,6 +34,7 @@ public class Main{
 			//j.setBackground(New Color("Black")));
 			
 			j.setEditable(false);
+			j.setVisible(false);
 			
 			
 			
@@ -441,15 +442,15 @@ public class Main{
 			  
 			  
 			  table = "Employees born in the 60s's\n";
-			  table = table.concat("Department          " + "Total Employees   " + "Avg Salary\n");
+			  table = table.concat("Department          " + "Avg Salary   " + "Total Employees\n");
 			  r = stmt.executeQuery(a(5));
 			  rm = r.getMetaData();
 			  columnsNumber = rm.getColumnCount();
 			  if(r.next()){
-				  table = table.concat(r.getObject(1) +"   " + r.getObject(2) + "   " +  r.getObject(3) + "\n" );
+				  table = table.concat(r.getObject(1) +"        " + r.getObject(2) + "          " +  r.getObject(3) + "\n" );
 				  while(r.next()){
 				  
-				  table = table.concat(r.getObject(1) +"   " + r.getObject(2) + "   " +  r.getObject(3) + "\n" );
+				  table = table.concat(r.getObject(1) +"        " + r.getObject(2) + "          " +  r.getObject(3) + "\n" );
 				  
 				  
 			 
