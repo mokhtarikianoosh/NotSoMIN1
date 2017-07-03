@@ -3,15 +3,15 @@
 USE Project3;
 --1.List the name of the student with id equal to v1 (id).
 --Takes 0.00 to 0.01 sec to execute
-SELECT studName FROM Student WHERE id = 998983;
+SELECT name FROM Student WHERE id = 998983;
 
 --2.List the names of students with id in the range of v2 (id) to v3 (inclusive).
 --Takes 0.00 to 0.01 sec to execute
-SELECT studName FROM Student WHERE id >= 927358 AND id <= 998442;
+SELECT name FROM Student WHERE id >= 927358 AND id <= 998442;
 
 --Finds all the students whose ids match from Transcript and have taken courses
 --Takes 1.95 to 2.49 sec to execute
-SELECT Student.studName, Student.id, Transcript.crsCode FROM Student, Transcript 
+SELECT Student.name, Student.id, Transcript.crsCode FROM Student, Transcript 
 WHERE Student.id = Transcript.studId;
 --3.List the names of students who have taken course v4 (crsCode).
 --Takes 0.01 to 0.02 sec to execute
@@ -20,7 +20,7 @@ Transcript.studId AND Transcript.crsCode = 'crsCode579449';
 
 --Returns all professors teaching a course
 --Takes 2.67 to 2.81 sec to execute
-SELECT Professor.profName, Teaching.crsCode FROM Professor, Teaching WHERE 
+SELECT Professor.name, Teaching.crsCode FROM Professor, Teaching WHERE 
 Professor.id = Teaching.profId;
 --4.List the names of students who have taken a course taught by professor v5 (name).
 --Takes 17.78 to 18.70 sec to execute
@@ -30,7 +30,7 @@ Professor.name = 'name260723';
 
 --Finds all the students who take courses from any department
 --Takes 4.38 to 4.43 sec to execute
-SELECT Student.studName, Transcript.crsCode, Course.deptId FROM Student, Course, 
+SELECT Student.name, Transcript.crsCode, Course.deptId FROM Student, Course, 
 Transcript WHERE Student.id = Transcript.studId AND Course.crsCode = Transcript.crsCode;
 --5.List the names of students who have taken a course from department v6 (deptId), 
 --but not v7.
