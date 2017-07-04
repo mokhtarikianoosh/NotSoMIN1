@@ -1,0 +1,82 @@
+/*
+* all these are working, you should add indexes to the following tables for sure: student, professor and course. Specifically for
+* for profesor table add an index using profName as it speeds up dramatically the query where we have to check by professor name
+*/
+
+
+
+1) 
+
+select studName from student where id = 636955;
+
+select studName from student where id = 999507;
+
+2) 
+
+select studName from student where id between 300000 and 450000;
+
+
+3)
+
+=
+select studName from student inner join (select studId from transcript where crsCode = 'crsCode100541') as t on id = t.studId;
+
+
+
+4) 
+
+//use whichever one yields a better execution cost and execution plan 
+
+
+
+select studName from student inner join (select studId from transcript p  inner join (select crsCode from teaching where profId = (select id from professor where profName = 'profName495936')) as r on p.crsCode = r.crsCode ) as t on id =t.studId;
+
+
+
+///////////////
+
+
+
+SELECT Student.studName, Transcript.crsCode FROM Student,  Transcript, Teaching, Professor 
+WHERE Student.id = Transcript.studId AND  transcript.crsCode = teaching.crsCode and Professor.id = Teaching.profId AND 
+Professor.profName = 'profName495936';
+
+
+
+5) 
+
+//use whichever one yields a better execution cost and execution plan 
+
+
+select studName from  student where id in (select studId from transcript where crsCode in (select crsCode from course where deptId = 'deptId627840')) and id not in  ((select studId from transcript where crsCode in (select crsCode from course where deptId = 'deptId355212')));
+
+
+//////////////////
+
+
+SELECT Student.studName, Transcript.crsCode, Course.deptId FROM Student, Course,  Transcript 
+WHERE Student.id = Transcript.studId AND Course.crsCode = Transcript.crsCode AND 
+Course.deptId = "deptId627840" AND student.id not in (select studId from transcript where crsCode  in (select crsCode from course where deptId= "deptId355212"));
+
+6)
+
+//use whichever one yields a better execution cost and execution plan 
+
+
+////////////
+
+
+
+select studName from student s , (select studId from transcript  t, (select crsCode from course where deptId = 'deptId627840' )as x where t.crsCode = x.crsCode ) as m where s.id = m.studId;
+
+///////////////////////
+
+
+select studName from student where id in (select studId from transcript inner join course on transcript.crsCode = course.crsCode and deptId = 'deptId627840');
+
+
+//////////////////////////
+
+
+SELECT Student.studName, Transcript.crsCode, Course.deptId FROM Student, Course,  
+ Transcript WHERE Student.id = Transcript.studId AND Course.deptId = "deptId627840" and course.crsCode = transcript.crsCode;
