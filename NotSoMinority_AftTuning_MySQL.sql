@@ -1,4 +1,6 @@
 --SQL queries after tuning and after adding primary and foreign keys
+CREATE DATABASE Project3;
+USE Project3;
 --id is the primary key for Student
 --id is the primary key for Professor
 --crsCode is the primary key for Course

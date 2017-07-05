@@ -1,5 +1,6 @@
 --SQL queries before tuning and before adding any primary or foreign keys
-USE Project3;
+CREATE DATABASE Project3_Before;
+USE Project3_Before;
 --1.List the name of the student with id equal to v1 (id).
 --Takes 0.0035 to 0.0060 sec to execute
 SELECT name FROM Student WHERE id = 998983;
