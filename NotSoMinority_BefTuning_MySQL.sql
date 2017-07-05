@@ -3,7 +3,7 @@ CREATE DATABASE Project3_Before;
 USE Project3_Before;
 --1.List the name of the student with id equal to v1 (id).
 --Takes 0.0035 to 0.0060 sec to execute
-SELECT name FROM Student WHERE id = 998983;
+SELECT name FROM Student WHERE id = 995293;
 
 --2.List the names of students with id in the range of v2 (id) to v3 (inclusive).
 --Takes 0.0037 to 0.0038 sec to execute
