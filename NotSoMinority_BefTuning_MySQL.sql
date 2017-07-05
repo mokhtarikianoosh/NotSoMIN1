@@ -2,11 +2,11 @@
 CREATE DATABASE Project3_Before;
 USE Project3_Before;
 --1.List the name of the student with id equal to v1 (id).
---Takes 0.0035 to 0.0060 sec to execute
+--Takes 0.0034 to 0.0060 sec to execute
 SELECT name FROM Student WHERE id = 995293;
 
 --2.List the names of students with id in the range of v2 (id) to v3 (inclusive).
---Takes 0.0037 to 0.0038 sec to execute
+--Takes 0.0037 to 0.0039 sec to execute
 SELECT name FROM Student WHERE id >= 131 AND id <= 5379;
 
 --Finds all the students whose ids match from Transcript and have taken courses
@@ -14,7 +14,7 @@ SELECT name FROM Student WHERE id >= 131 AND id <= 5379;
 --SELECT Student.name, Student.id, Transcript.crsCode FROM Student, Transcript 
 --WHERE Student.id = Transcript.studId;
 --3.List the names of students who have taken course v4 (crsCode).
---Takes 0.0084 to 0.0091 sec to execute
+--Takes 0.0083 to 0.0091 sec to execute
 SELECT Student.name FROM Student, Transcript  WHERE Student.id = 
 Transcript.studId AND Transcript.crsCode = 'crsCode579449';
 
@@ -34,7 +34,7 @@ Transcript.crsCode = Teaching.crsCode AND Professor.name = 'name260723';
 --Transcript WHERE Student.id = Transcript.studId AND Course.crsCode = Transcript.crsCode;
 --5.List the names of students who have taken a course from department v6 (deptId), 
 --but not v7.
---Takes 0.018 to 0.019 sec to execute
+--Takes 0.016 to 0.020 sec to execute
 SELECT Student.name, Transcript.crsCode, Course.deptId FROM Student, Course,  
 Transcript WHERE Student.id = Transcript.studId AND Course.crsCode = Transcript.crsCode 
 AND Course.deptId = "deptId50411" AND student.id not IN (SELECT studId FROM transcript 
@@ -42,7 +42,7 @@ WHERE crsCode  IN (SELECT crsCode FROM course WHERE deptId= "deptId563888"));
 
 --6.List the names of students who have taken all courses offered by department v8 
 --(deptId).
---Takes 0.0083 to 0.0084 to execute
+--Takes 0.0083 to 0.0085 to execute
 SELECT Student.name, Transcript.crsCode, Course.deptId FROM Student, Course,  
 Transcript WHERE Student.id = Transcript.studId AND Course.deptId = "deptId597183" 
 AND course.crsCode = transcript.crsCode;
