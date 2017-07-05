@@ -25,6 +25,7 @@ SELECT name FROM Student WHERE id BETWEEN 131 AND 5379;
 --CREATE INDEX studName ON Student(name);
 --CREATE INDEX courseName ON Course(crsName);
 --CREATE INDEX profName ON Professor(name);
+--CREATE INDEX departmentId ON Course(deptId);
 --Takes 0.00035 to 0.00041 sec to execute and this was just from adding id as the primary 
 --key which creates and index for id for Student
 SELECT name FROM student INNER JOIN (SELECT studId FROM Transcript WHERE crsCode = 
@@ -48,7 +49,7 @@ deptId = 'deptId563888')));
 
 --6.List the names of students who have taken all courses offered by department v8 
 --(deptId).
---Takes 0.00093 to 0.00096 sec to execute just from adding primary keys and foreign 
+--Takes 0.00035 to 0.00052 sec to execute just from adding primary keys and foreign 
 --keys to their respective tables
 SELECT name FROM student s , (SELECT studId FROM transcript  t, (SELECT crsCode FROM 
 course WHERE deptId = 'deptId597183' )AS x WHERE t.crsCode = x.crsCode ) AS m WHERE 
