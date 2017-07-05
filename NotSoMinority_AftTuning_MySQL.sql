@@ -10,39 +10,44 @@
 --studId is the foreign key for Transcript to Student(id)
 
 --1.List the name of the student with id equal to v1 (id).
---Takes 0.00 sec to execute and this was from just adding id as the primary key which 
---creates an index for id for Student
-SELECT name FROM Student WHERE id = 998983;
+--Takes 0.00022 to 0.00030 sec to execute and this was from just adding id as the 
+--primary key which creates an index for id for Student
+SELECT name FROM Student WHERE id = 995293;
 
 --2.List the names of students with id in the range of v2 (id) to v3 (inclusive).
---Takes 0.00 to 0.01 sec to execute and this was from just adding id as the primary 
+--Takes 0.00029 to 0.00033 sec to execute and this was from just adding id as the primary 
 --key which creates an index for id for Student
-SELECT name FROM Student WHERE id >= 736096 AND id <= 998442;
+SELECT name FROM Student WHERE id BETWEEN 131 AND 5379;
 
 --3.List the names of students who have taken course v4 (crsCode).
---Takes 0.00 sec to execute and this was just from adding id as the primary key which
---creates and index for id for Student
-SELECT Student.name FROM Student, Transcript  WHERE Student.id = 
-Transcript.studId AND Transcript.crsCode = 'crsCode579449';
+--CREATE INDEX studName ON Student(name);
+--CREATE INDEX courseName ON Course(crsName);
+--CREATE INDEX profName ON Professor(name);
+--Takes 0.00036 to 0.0021 sec to execute and this was just from adding id as the primary 
+--key which creates and index for id for Student
+SELECT name FROM student INNER JOIN (SELECT studId FROM Transcript WHERE crsCode = 
+'crsCode579449') AS t ON id = t.studId;
 
 --4.List the names of students who have taken a course taught by professor v5 (name).
---Takes 0.01 to 0.02 sec to execute from adding the primary key id for Student,
+--Takes 0.00045 to 0.0028 sec to execute from adding the primary key id for Student,
 --primary key id for Professor
-SELECT Student.name, Transcript.crsCode FROM Student,  Transcript, Teaching, Professor 
-WHERE Student.id = Transcript.studId AND  Professor.id = Teaching.profId AND 
-Professor.name = 'name260723';
+SELECT name FROM Student INNER JOIN (SELECT studId FROM Transcript p  INNER JOIN 
+(select crsCode FROM Teaching WHERE profId = (SELECT id FROM Professor WHERE name = 
+'name260723')) AS r ON p.crsCode = r.crsCode ) AS t ON id =t.studId;
 
 --5.List the names of students who have taken a course from department v6 (deptId), 
 --but not v7.
---Takes 0.00 to execute just from adding primary and foreign keys for the respective
---tables
-SELECT Student.name, Transcript.crsCode, Course.deptId FROM Student, Course,  Transcript 
-WHERE Student.id = Transcript.studId AND Course.crsCode = Transcript.crsCode AND 
-Course.deptId = "deptId50411" AND Course.deptId <> "deptId563888";
+--Takes 0.0016 to 0.0029 sec to execute just from adding primary and foreign keys 
+--for the respective tables
+SELECT name FROM  student WHERE id IN (SELECT studId FROM transcript WHERE crsCode IN 
+(SELECT crsCode FROM course WHERE deptId = 'deptId50411')) AND id not IN  
+((SELECT studId FROM transcript WHERE crsCode IN (SELECT crsCode FROM course WHERE 
+deptId = 'deptId563888')));
 
 --6.List the names of students who have taken all courses offered by department v8 
 --(deptId).
---Takes 0.01 to 0.02 sec to execute just from adding primary keys and foreign keys 
---to their respective tables
- SELECT Student.name, Transcript.crsCode, Course.deptId FROM Student, Course,  
- Transcript WHERE Student.id = Transcript.studId AND Course.deptId = "deptId597183";
+--Takes 0.00094 to 0.00096 sec to execute just from adding primary keys and foreign 
+--keys to their respective tables
+SELECT name FROM student s , (SELECT studId FROM transcript  t, (SELECT crsCode FROM 
+course WHERE deptId = 'deptId597183' )AS x WHERE t.crsCode = x.crsCode ) AS m WHERE 
+s.id = m.studId;
