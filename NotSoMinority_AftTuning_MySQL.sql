@@ -40,7 +40,7 @@ SELECT name FROM Student INNER JOIN (SELECT studId FROM Transcript p  INNER JOIN
 
 --5.List the names of students who have taken a course from department v6 (deptId), 
 --but not v7.
---Takes 0.0016 to 0.0024 sec to execute just from adding primary and foreign keys 
+--Takes 0.00053 to 0.00097 sec to execute just from adding primary and foreign keys 
 --for the respective tables
 SELECT name FROM  student WHERE id IN (SELECT studId FROM transcript WHERE crsCode IN 
 (SELECT crsCode FROM course WHERE deptId = 'deptId50411')) AND id not IN  
