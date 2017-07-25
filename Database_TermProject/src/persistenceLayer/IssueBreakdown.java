@@ -20,7 +20,7 @@ public class IssueBreakdown {
 	
 	
 	public List<BreakdownIssue> getBreakdown(String issue){
-		String check = "select * from (select product, issue, count(issue) as total from productIssue group by product, issue) as t where issue='" + issue + "' order by total desc";
+		String check = "select * from (select product, issue, count(issue) as total from productIssue group by product, issue) as t where issue='" + issue.replace("'", "''") + "' order by total desc";
 		Statement stmt2 = null;
 		List<BreakdownIssue> breakdown = new ArrayList<BreakdownIssue>();
 		try {

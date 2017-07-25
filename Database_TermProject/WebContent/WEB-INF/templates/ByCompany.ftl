@@ -62,6 +62,23 @@ table, th, td {
 <input type="submit">
 </form>
 
+<p> Or select company by the state in which they received a complaint: </p>
+
+<form method="GET" action="DataCompanyByState">
+	<table>
+		<th>View company complaints by state</th>
+			<tr>
+				<td>
+					<select name ="state">
+						<#list states as state>
+							<option value="${state}">${state}</option>
+						</#list>
+					</select>
+		  		</td>
+		 	</tr>
+	</table>
+<input type ="submit" value="Get info by State">
+</form>
 
 
 <form method="GET" action="Login">

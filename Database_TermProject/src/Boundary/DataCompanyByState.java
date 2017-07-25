@@ -29,12 +29,12 @@ import freemarker.template.TemplateException;
  * 
  * Servlet that handles creation of new user accounts.
  */
-@WebServlet("/DataByCompany")
-public class DataByCompany extends HttpServlet {
+@WebServlet("/DataCompanyByState")
+public class DataCompanyByState extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	static  String         templateDir = "WEB-INF/templates";
-	static  String         signUpTemplateName = "ByCompany.ftl";
-	static  String         displayTemplateName = "DisplayCompanies.ftl";
+	static  String         signUpTemplateName = "ByState.ftl";
+	static  String         reportTemplateName = "ReportByState.ftl";
 	static  String         failureTemplateName = "UpdateFailure.ftl";
 	private Map<String, Object> root = new HashMap<String,Object>();
 	   private Configuration cfg;
@@ -87,20 +87,18 @@ public class DataByCompany extends HttpServlet {
         	setUpTemplate(request,response,failureTemplateName);   
         }
 		
-		
-		
-	try {
-		 	root.put("reason", "Select by Letter");
-			ByState states = new ByState();
-			root.put("states", states.getStates());
+
+		try {
+			ByState companies = new ByState();
+			root.put("companies", companies.getCompaniesInState(request.getParameter("state")));
+			root.put("state", request.getParameter("state"));
 			setUpTemplate(request,response,signUpTemplateName);
-			states.disconnect();
+			companies.disconnect();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-
+		
 	}
 
 	/**
@@ -134,17 +132,20 @@ public class DataByCompany extends HttpServlet {
         	root.put( "reason", "Session expired or illegal; please log in" );
         	setUpTemplate(request,response,failureTemplateName);   
         }
-		
-		
-		String letter = request.getParameter("option");
-		try {
-			CompanyNames companies = new CompanyNames();
-			root.put("list", companies.names(letter));
-			setUpTemplate(request,response,displayTemplateName);
+        
+        
+        try {
+			ByState companies = new ByState();
+			root.put("report", companies.getCompaniesReportByState(request.getParameter("company"),request.getParameter("state")));
+			root.put("state", request.getParameter("state"));
+			root.put("companyName", request.getParameter("company"));
+			setUpTemplate(request,response,reportTemplateName);
 			companies.disconnect();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		
 		
 		
 	}
